@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fast-rlm"
+version = "0.1.10"
+description = "Light-dependency, Feature-Rich Implementation of Recursive Language Models"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pyyaml>=6.0",
+    "openai>=1.0.0",
+    "rich>=13.0.0",
+]
+
+[project.urls]
+Documentation = "https://avbiswas.github.io/fast-rlm/"
+Repository = "https://github.com/avbiswas/fast-rlm"
+"Original Paper" = "https://arxiv.org/abs/2512.24601"
+
+[project.optional-dependencies]
+benchmarks = [
+    "datasets==3.6.0",
+]
+
+[project.scripts]
+fast-rlm-log = "fast_rlm._cli:view_log"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    ".venv",
+    ".jj",
+    ".claude",
+    "node_modules",
+    "tui_log_viewer/node_modules",
+    "logs",
+    "sample_logs",
+    "dist",
+    "__pycache__",
+    "*.egg-info",
+    "images",
+    "benchmarks",
+    "uv.lock",
+    "docs",
+    "mkdocs.yml",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["fast_rlm", "fast_rlm_py"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"rlm_config.yaml" = "fast_rlm/rlm_config.yaml"
